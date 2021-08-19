@@ -15,6 +15,6 @@ Compiling package ieee.std_logic_arith
 Compiling package ieee.std_logic_unsigned
 Compiling architecture behavioral of entity xil_defaultlib.clk_div [clk_div_default]
 Compiling architecture behavioral of entity xil_defaultlib.bin2hex [bin2hex_default]
-Compiling architecture behavioral of entity xil_defaultlib.digital_clock [digital_clock_default]
+Compiling architecture behavioral of entity xil_defaultlib.alarm_clock [alarm_clock_default]
 Compiling architecture behavior of entity xil_defaultlib.tb_alarm_clock
 Built simulation snapshot tb_alarm_clock_behav

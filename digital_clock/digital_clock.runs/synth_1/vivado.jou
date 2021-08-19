@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Fri Aug 20 01:20:16 2021
+# Process ID: 15040
+# Current directory: C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.runs/synth_1
+# Command line: vivado.exe -log digital_clock.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source digital_clock.tcl
+# Log file: C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.runs/synth_1/digital_clock.vds
+# Journal file: C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source digital_clock.tcl -notrace
