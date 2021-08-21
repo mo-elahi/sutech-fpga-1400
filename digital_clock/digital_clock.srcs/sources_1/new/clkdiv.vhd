@@ -16,12 +16,12 @@ begin
 	begin
 			if(rising_edge(clk_50)) then
 					counter <= counter + x"0000001";
-					if(counter>=x"F4240") then --50000000 shomaresh shodeh 1 saneyeh
+					if(counter>=x"4E20") then --50000000 shomaresh shodeh 1 saneyeh 
 						counter <= x"0000000";
 					end if;
 			end if;
  end process;
  
- clk_1s <= '0' when counter < x"7A120" else '1';--25000000 shomaresh shodeh nesf d; saneyeh
+ clk_1s <= '1' when counter < x"2710" else '0';-- 25000000 shomaresh shodeh nesf d; saneyeh
  
 end Behavioral;

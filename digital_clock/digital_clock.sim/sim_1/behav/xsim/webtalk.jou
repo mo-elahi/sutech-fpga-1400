@@ -2,8 +2,8 @@
 # Webtalk v2019.1 (64-bit)
 # SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
 # IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
-# Start of session at: Thu Aug 19 18:55:48 2021
-# Process ID: 12584
+# Start of session at: Sat Aug 21 20:12:49 2021
+# Process ID: 11904
 # Current directory: C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.sim/sim_1/behav/xsim
 # Command line: wbtcv.exe -mode batch -source C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.sim/sim_1/behav/xsim/xsim.dir/tb_alarm_clock_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.sim/sim_1/behav/xsim/webtalk.log

@@ -31,7 +31,7 @@ set_property ip_cache_permissions {read write} [current_project]
 read_vhdl -library xil_defaultlib {
   C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.srcs/sources_1/new/bin2hex.vhd
   C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.srcs/sources_1/new/clkdiv.vhd
-  C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.srcs/sources_1/new/digital_clock.vhd
+  C:/Users/Mr.Syncope/Documents/UniDigit/sutech-fpga-1400/digital_clock/digital_clock.srcs/sources_1/new/alarm_clock.vhd
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -44,12 +44,12 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
-synth_design -top digital_clock -part xc7vx485tffg1157-1
+synth_design -top alarm_clock -part xc7vx485tffg1157-1
 
 
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
-write_checkpoint -force -noxdef digital_clock.dcp
-create_report "synth_1_synth_report_utilization_0" "report_utilization -file digital_clock_utilization_synth.rpt -pb digital_clock_utilization_synth.pb"
+write_checkpoint -force -noxdef alarm_clock.dcp
+create_report "synth_1_synth_report_utilization_0" "report_utilization -file alarm_clock_utilization_synth.rpt -pb alarm_clock_utilization_synth.pb"
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]

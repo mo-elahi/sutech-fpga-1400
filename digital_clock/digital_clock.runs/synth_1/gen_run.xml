@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7vx485tffg1157-1" LaunchTime="1629406213">
-  <File Type="PA-TCL" Name="digital_clock.tcl"/>
-  <File Type="REPORTS-TCL" Name="digital_clock_reports.tcl"/>
-  <File Type="RDS-RDS" Name="digital_clock.vds"/>
-  <File Type="RDS-UTIL" Name="digital_clock_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="digital_clock_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="digital_clock.dcp"/>
+<GenRun Id="synth_1" LaunchPart="xc7vx485tffg1157-1" LaunchTime="1629562977">
+  <File Type="PA-TCL" Name="alarm_clock.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="alarm_clock_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="alarm_clock_reports.tcl"/>
+  <File Type="RDS-RDS" Name="alarm_clock.vds"/>
+  <File Type="RDS-UTIL" Name="alarm_clock_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="alarm_clock_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="alarm_clock.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="alarm_clock_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="alarm_clock_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/bin2hex.vhd">
@@ -20,15 +23,22 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/new/digital_clock.vhd">
+    <File Path="$PSRCDIR/sources_1/new/alarm_clock.vhd">
       <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/alarmPackage.vhd">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="digital_clock"/>
+      <Option Name="TopModule" Val="alarm_clock"/>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
   </FileSet>

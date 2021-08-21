@@ -72,6 +72,9 @@ signal M_out0_bin: std_logic_vector(3 downto 0);--yekan daghegheh
 signal S_out1_bin: std_logic_vector(3 downto 0);--dahgan saneyeh
 signal S_out0_bin: std_logic_vector(3 downto 0);--yakan saneyeh
 
+type STATE_T is (START, WORK_NORMAL, SETUP_TIME, SETUP_ALARM, BUZZER_ON);
+signal STATE: STATE_T;
+
 begin
 
 create_1s_clock: clk_div port map (clk_50 => clk, clk_1s => clk_1s); --sakht 1s
@@ -81,71 +84,78 @@ process(clk_1s,rst_n,clock_on,set_alarm,set_time)
 variable  counter_buzzer: integer range 0 to 9;
 
 begin 
-
 	
-		
-	if(clock_on = '1') then
-	
-		if(set_alarm='1')then
-		
-		   counter_buzzer:=0;
-			alarm_hour <= to_integer(unsigned(H_in1))*10 + to_integer(unsigned(H_in0));
-			alarm_min  <= to_integer(unsigned(M_in1))*10 + to_integer(unsigned(M_in0));
-		
-		end if;
-	
-		if(rst_n = '1') then
-			counter_hour <= 0;
-			counter_minute <= 0;
-			counter_second <= 0;
-			
-		elsif(set_time='1') then
-		
-		   counter_hour   <= to_integer(unsigned(H_in1))*10 + to_integer(unsigned(H_in0));
-			counter_minute <= to_integer(unsigned(M_in1))*10 + to_integer(unsigned(M_in0));
-			counter_second <= 0;
-		
-		elsif(rising_edge(clk_1s)) then
+	if rst_n = '1' then
+	   STATE <= START;
+	else
+	   case STATE is
+	       when START =>
+	            if clock_on = '1' then
+	               STATE <= WORK_NORMAL;
+	            else
+                   counter_hour <= 0;
+                   counter_minute <= 0;
+                   counter_second <= 0;
+                end if;       
+	       when WORK_NORMAL =>
+	            if set_time = '1' then
+	               STATE <= SETUP_TIME;
+	            elsif set_alarm = '1' then 
+	               STATE <= SETUP_ALARM;
+	            elsif clock_on = '0' then
+	               STATE <= START;
+	            end if;
+	            
+	            if( (counter_minute=alarm_min) and (counter_hour=alarm_hour) and alarm_on='1' and flag=0) then
+	               STATE <= BUZZER_ON;
+	            end if;
+	       when SETUP_TIME =>
+	            if set_time = '0' then
+	               STATE <= WORK_NORMAL;
+	            else
+                   counter_hour   <= to_integer(unsigned(H_in1))*10 + to_integer(unsigned(H_in0));
+                   counter_minute <= to_integer(unsigned(M_in1))*10 + to_integer(unsigned(M_in0));
+                   counter_second <= 0;
+                end if;
+	       when SETUP_ALARM =>
+	            if set_alarm = '0' then
+	               STATE <= WORK_NORMAL;
+	            else
+                   counter_buzzer:=0;
+			       alarm_hour <= to_integer(unsigned(H_in1))*10 + to_integer(unsigned(H_in0));
+			       alarm_min  <= to_integer(unsigned(M_in1))*10 + to_integer(unsigned(M_in0));
+                end if;
+	       when BUZZER_ON =>
+	            if (flag = 0) then
+                   counter_buzzer := 0;
+                   flag <= 1;
+                   alarm <= '1';
+                end if;
+                
+	            if(  (stop_alarm='1') or (counter_buzzer >= 11) or (alarm_on='0')  )then
+				    STATE <= WORK_NORMAL;
+				    alarm <= '0';
+			    end if;
+	   end case;
+	   
+	   if(rising_edge(clk_1s)) then
 			counter_second <= counter_second + 1;
 			counter_buzzer := counter_buzzer + 1;
-			
-				
-			if(counter_second >=59) then -- agar (saneyeh > 59) shavad daghegheh afzayesh meyabad
-					counter_minute <= counter_minute + 1;
-					flag<=0;
-					counter_second <= 0;
-					
-					if(counter_minute >=59) then  -- agar (daghegheh > 59) shavad daghegheh afzayesh meyabad
-						counter_minute <= 0;
-						counter_hour <= counter_hour + 1;
-						
-						if(counter_hour >= 24) then -- agar (saat > 24) shavad saat sefr meshavad
-							counter_hour <= 0;
-							
-						end if;
-						
-					end if;
-					
-			end if;
-			
-			if( (counter_minute=alarm_min) and (counter_hour=alarm_hour) and alarm_on='1' and flag=0) then
-				
-				counter_buzzer:=0;
-			
-				flag<=1;
-				
-				alarm<='1';
-			
-			end if;
-			
-			if(  (stop_alarm='1') or (counter_buzzer>=9) or (alarm_on='0')  )then
-				
-				alarm<='0';
-				
-			end if;
-			
-		end if;
-	end if;
+			if(counter_second > 59) then -- agar (saneyeh > 59) shavad daghegheh afzayesh meyabad
+                counter_minute <= counter_minute + 1;
+                flag <= 0;
+                counter_second <= 0;
+                
+                if(counter_minute > 59) then  -- agar (daghegheh > 59) shavad daghegheh afzayesh meyabad
+                    counter_minute <= 0;
+                    counter_hour <= counter_hour + 1;
+                    if(counter_hour > 24) then -- agar (saat > 24) shavad saat sefr meshavad
+                        counter_hour <= 0;    
+                    end if;
+                end if;	
+	         end if;
+	   end if;
+    end if;
 		
 end process;
 

@@ -40,4 +40,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log digital_clock.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source digital_clock.tcl
+EAStep vivado -log alarm_clock.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source alarm_clock.tcl

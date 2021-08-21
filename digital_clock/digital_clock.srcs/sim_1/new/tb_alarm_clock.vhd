@@ -59,7 +59,8 @@ ARCHITECTURE behavior OF tb_alarm_clock IS
    signal S_out0 : std_logic_vector(6 downto 0);
 
    -- Clock period definitions
-   constant clk_period : time := 1 us;
+   constant clk_period : time := 50000 ns;
+   signal finished : boolean := False;
  
 BEGIN
  
@@ -88,144 +89,177 @@ BEGIN
    -- Clock process definitions
    clk_process :process
    begin
-		clk <= '0';
-		wait for clk_period/2;
+    while(finished /= True) loop
 		clk <= '1';
 		wait for clk_period/2;
+		clk <= '0';
+		wait for clk_period/2;
+		end loop;
+		wait;
    end process;
 
    -- Stimulus process
    stim_proc: process
    begin	
-	
---       clock_on<='1';
---		 set_alarm<='0';
---		 set_time <= '1';
---		 H_in1 <= "01";
---       H_in0 <= x"0";
---       M_in1 <= x"2";
---       M_in0 <= x"0";
---       wait for 100 ns; 
---		 set_time <= '0';
---		 set_alarm<='1';
---		 H_in1 <= "01";
---       H_in0 <= x"0";
---       M_in1 <= x"2";
---       M_in0 <= x"1";
---		 wait for 100 ns; 
---		 set_time <= '0';
---		 set_alarm<='0';
---		 alarm_on<='1';
---		 wait for 1000 ns;
---		 rst_n<='1';
---		 wait;
-		 
-		 clock_on<='1';
-		 set_alarm<='0';
-		 set_time <= '1';
-		 H_in1 <= "01";
-       H_in0 <= x"0";
-       M_in1 <= x"2";
-       M_in0 <= x"0";
-       wait for 100 ns; 
-		 set_time <= '0';
-		 wait for 10000 ms;
-		 
-		 set_time <= '1';
-		 H_in1 <= "01";
-       H_in0 <= x"0";
-       M_in1 <= x"2";
-       M_in0 <= x"9";
-       wait for 100 ns; 
-		 set_time <= '0';
-		 wait for 10000 ms;
-		 
-		 set_time <= '1';
-		 H_in1 <= "01";
-       H_in0 <= x"2";
-       M_in1 <= x"5";
-       M_in0 <= x"9";
-       wait for 100 ns; 
-		 set_time <= '0';
-		 wait for 10000 ms;
-		 
-		 set_time <= '1';
-		 H_in1 <= "00";
-       H_in0 <= x"2";
-       M_in1 <= x"4";
-       M_in0 <= x"4";
-       wait for 100 ns; 
-		 set_time <= '0';
-		 wait for 10000 ms;
-		 
-		 set_time <= '1';
-		 H_in1 <= "10";
-       H_in0 <= x"1";
-       M_in1 <= x"3";
-       M_in0 <= x"0";
-       wait for 100 ns; 
-		 set_time <= '0';
-		 wait for 10000 ms;
-		 
-		 set_time <= '1';
-		 H_in1 <= "00";
-       H_in0 <= x"5";
-       M_in1 <= x"4";
-       M_in0 <= x"4";
-       wait for 100 ns; 
-       set_time <= '0';
-		 set_alarm<='1';
-		 H_in1 <= "00";
-       H_in0 <= x"5";
-       M_in1 <= x"4";
-       M_in0 <= x"5";
-		 wait for 100 ns; 
-		 set_time <= '0';
-		 set_alarm<='0';
-		 alarm_on<='1';
-		 wait for 70000 ms;
-		 
-		 set_time <= '1';
-		 H_in1 <= "10";
-       H_in0 <= x"2";
-       M_in1 <= x"3";
-       M_in0 <= x"3";
-       wait for 100 ns; 
-       set_time <= '0';
-		 set_alarm<='1';
-		 H_in1 <= "10";
-       H_in0 <= x"2";
-       M_in1 <= x"3";
-       M_in0 <= x"4";
-		 wait for 100 ns; 
-		 set_time <= '0';
-		 set_alarm<='0';
-		 alarm_on<='1';
-		 wait for 70000 ms;
-		 
-		 set_time <= '1';
-		 H_in1 <= "00";
-       H_in0 <= x"2";
-       M_in1 <= x"4";
-       M_in0 <= x"3";
-       wait for 100 ns; 
-       set_time <= '0';
-		 set_alarm<='1';
-		 H_in1 <= "00";
-       H_in0 <= x"2";
-       M_in1 <= x"4";
-       M_in0 <= x"4";
-		 wait for 100 ns; 
-		 set_time <= '0';
-		 set_alarm<='0';
-		 alarm_on<='1';
-		 wait for 70000 ms;
-		 wait;
-		 
-
+	 while(finished /= True) loop
+	  clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "10";
+      H_in0 <= x"2";
+      M_in1 <= x"4";
+      M_in0 <= x"6";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 10 sec;
+      
+      clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "01";
+      H_in0 <= x"0";
+      M_in1 <= x"0";
+      M_in0 <= x"0";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 10 sec;
+      
+      clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "01";
+      H_in0 <= x"5";
+      M_in1 <= x"5";
+      M_in0 <= x"5";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 10 sec;
+      
+      clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "10";
+      H_in0 <= x"4";
+      M_in1 <= x"5";
+      M_in0 <= x"0";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 10 sec;
+      
+      clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "01";
+      H_in0 <= x"0";
+      M_in1 <= x"1";
+      M_in0 <= x"0";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 10 sec;
+	 
+      clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "01";
+      H_in0 <= x"3";
+      M_in1 <= x"3";
+      M_in0 <= x"3";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 1 sec;
+      H_in1 <= "01";
+      H_in0 <= x"3";
+      M_in1 <= x"3";
+      M_in0 <= x"4";
+      set_alarm<='1';
+      wait for 1 sec;
+      set_alarm<='0';
+      wait for 70 sec;
+      
+      
+      clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "01";
+      H_in0 <= x"2";
+      M_in1 <= x"3";
+      M_in0 <= x"0";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 1 sec;
+      H_in1 <= "01";
+      H_in0 <= x"2";
+      M_in1 <= x"3";
+      M_in0 <= x"1";
+      set_alarm<='1';
+      wait for 1 sec;
+      set_alarm<='0';
+      wait for 70 sec;
+      
+      
+      clock_on <= '1';
+      alarm_on<='1';
+	  rst_n <= '1';
+	  wait for 1 sec;
+	  rst_n <='0';
+	  wait for 1 sec;
+	  set_alarm <= '0';
+	  set_time <= '1'; 
+      H_in1 <= "10";
+      H_in0 <= x"2";
+      M_in1 <= x"0";
+      M_in0 <= x"0";
+      wait for 1 sec;
+      set_time <= '0';
+      wait for 1 sec;
+      H_in1 <= "10";
+      H_in0 <= x"2";
+      M_in1 <= x"0";
+      M_in0 <= x"1";
+      set_alarm<='1';
+      wait for 1 sec;
+      set_alarm<='0';
+      wait for 70 sec;
+      finished <= True;
       -- insert stimulus here 
-
       wait;
+      end loop;
+      
    end process;
 
 END;
